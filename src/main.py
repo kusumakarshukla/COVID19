@@ -6,10 +6,11 @@ import pandas as pd
 from covidCases import CovidCases
 import plotly.graph_objects as go
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 covid=CovidCases()
 regions=covid.latest_cases()
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+summary=covid.summary()
+
+app = dash.Dash(__name__)
 
 
 df = pd.DataFrame({
@@ -27,18 +28,29 @@ fig = go.Figure(data=[
     go.Bar(name='Discharged', x=df['States'], y=df['Discharged'])
     
 ])
-app.layout = html.Div(children=[
+app.layout = html.Div(id='dark-theme-container',children=[
     html.H1(children='Latest COVID Cases'),
 
-    html.Div(children='''
-       
-    '''),
+    
+    html.Div([
+        html.Table([
+            html.Tr(
+                [html.Td(html.H1('Total')),html.Td(html.H1('Overall Confirmed')),html.Td(html.H1('Overall Discharged')),html.Td(html.H1('Overall Deaths'))]
+
+            ),
+            html.Tr(
+                [html.Td(html.H1(summary['total'])),html.Td(html.H1(summary['confirmedCasesIndian'])),html.Td(html.H1(summary['discharged'])),html.Td(html.H1(summary['deaths']))]
+
+            )])
+            
+          
+    ]),
 
     dcc.Graph(
         id='example-graph',
         figure=fig
-    )
-])
+)])
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
