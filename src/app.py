@@ -344,7 +344,7 @@ def tab1_data():
         go.Bar(name='Deaths', x=df['States'], y=df['Deaths']),
         go.Bar(name='Discharged', x=df['States'], y=df['Discharged'])],layout= go.Layout(
             
-            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            margin={'l': 40, 'b': 70, 't': 10, 'r': 10},
             paper_bgcolor = '#000000',
 			font= {
                     'color': 'white'
@@ -356,6 +356,7 @@ def tab1_data():
             },
             hovermode='closest',
             xaxis=dict(
+                tickangle = 90,
         autorange=True,
         showgrid= False,
         ticks='',
@@ -369,6 +370,11 @@ def tab1_data():
  
  
       )
+    fig.update_xaxes(
+        tickangle = 30,
+        title_text = "States",
+        title_font = {"size": 20},
+        title_standoff = 25)
         
     
     return html.Div(id='dark-theme-container',children=[daq.DarkThemeProvider(theme=theme),
@@ -378,7 +384,7 @@ def tab1_data():
         html.Div([
             html.Table([
                 html.Tr(
-                    [html.Td(html.H4('Total')),html.Td(html.H4('Overall Confirmed')),html.Td(html.H4('Overall Discharged')),html.Td(html.H4('Overall Deaths'))]
+                    [html.Td(html.H1('Total')),html.Td(html.H1('Overall Confirmed')),html.Td(html.H1('Overall Discharged')),html.Td(html.H1('Overall Deaths'))]
 
                 ),
                 html.Tr(
@@ -387,28 +393,32 @@ def tab1_data():
              color="#00ff00",
 			backgroundColor="#23262e",
             id='darktheme-daq-leddisplay',
-            className='dark-theme-control'
+            className='dark-theme-control',
+            size=40
             
         )),html.Td(daq.LEDDisplay(
             value=summary['confirmedCasesIndian'],
              color="#00ff00",
 			backgroundColor="#23262e",
             id='darktheme-daq-leddisplay',
-            className='dark-theme-control'
+            className='dark-theme-control',
+            size=40
             
         )),html.Td(daq.LEDDisplay(
             value=summary['discharged'],
              color="#00ff00",
 			backgroundColor="#23262e",
             id='darktheme-daq-leddisplay',
-            className='dark-theme-control'
+            className='dark-theme-control',
+            size=40
             
         )),html.Td(html.Td(daq.LEDDisplay(
             value=summary['deaths'],
              color="#00ff00",
 			backgroundColor="#23262e",
             id='darktheme-daq-leddisplay',
-            className='dark-theme-control'
+            className='dark-theme-control',
+            size=40
             
         )))]
 
@@ -416,7 +426,7 @@ def tab1_data():
                 
             
         ]),
-
+        html.H1("Latest  COVID-19 Cases across Indian States"),
         dcc.Graph(
             id='example-graph',
             figure=fig,
