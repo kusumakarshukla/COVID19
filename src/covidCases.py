@@ -97,6 +97,12 @@ class CovidCases:
 		return testing
 
 
+	def facilities(self):
+		res=requests.get('https://api.rootnet.in/covid19-in/hospitals/beds').text
+		res=json.loads(res)
+		tests=pd.DataFrame(res['data']['regional'])
+		return tests
+
 	def return_history(self,state,date):
 		region_history=self.history()
 		states=[]

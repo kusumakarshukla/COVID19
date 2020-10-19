@@ -21,6 +21,170 @@ server = app.server
 def update_output_div(state,date):
     ob=CovidCases()
     return ob.return_history(state,date)
+@app.callback(
+    Output(component_id='toggle-switch-output', component_property='children'),
+    [Input(component_id='my-toggle-switch', component_property='on')])
+def alter_toggle(rural):
+    ob=CovidCases()
+    tests=ob.facilities()
+    child=[]
+    if rural==True:
+        tests.sort_values('ruralHospitals',inplace=True)
+        x=tests.state[:20]
+        y=tests.ruralHospitals[:20]
+        print(x)
+        print(y)
+        fig = go.Figure(data=[
+        go.Bar(name='Top 20 Hospital Counts', x=x, y=y)]
+        ,layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
+        child.append(html.H2("Top 20 States with highest Bed counts in Rural Areas"))
+        child.append(dcc.Graph(figure=fig))
+        tests.sort_values('ruralBeds',inplace=True)
+        
+        x=tests.state[:20]
+        y=tests.ruralBeds[:20]
+        print(x)
+        print(y)
+        fig = go.Figure(data=[
+        go.Bar(name='Top 20 Bed Counts', x=x, y=y)]
+        ,layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
+        child.append(html.H2("Top 20 States with highest  Bed counts in Rural Areas"))
+        child.append(dcc.Graph(figure=fig))
+    else:
+        tests.sort_values('urbanHospitals',inplace=True)
+        x=tests.state[:20]
+        y=tests.urbanHospitals[:20]
+        fig = go.Figure(data=[
+        go.Bar(name='Top 20 Urban Hospitals', x=x, y=y)]
+        ,layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
+        child.append(html.H2("Top 20 States with highest Hospital Counts in Urban Areas"))
+        child.append(dcc.Graph(figure=fig))
+        tests.sort_values('urbanBeds',inplace=True)
+        x=tests.state[:20]
+        y=tests.urbanBeds[:20]
+        fig = go.Figure(data=[
+        go.Bar(name='Top 20 States with highest  Bed counts in Urban Areas', x=x, y=y)]
+        ,layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
+        child.append(html.H2("Top 20 States with highest  Bed counts in Urban Areas"))
+        child.append(dcc.Graph(figure=fig))
+
+    return child
+
+        
+
+
+
+
+
+
+
+
+
+
 
 @app.callback(
     Output(component_id='cases_graph', component_property='figure'),
@@ -299,7 +463,12 @@ def tab1_data():
         dcc.Graph(id="cases_graph")],style={'width':'100%'})])
 
     ])
-
+theme =  {
+    'dark': True,
+    'detail': '#007439',
+    'primary': '#00EA64',
+    'secondary': '#6E6E6E',
+}
 
 @app.callback(Output('tabs-example-content', 'children'),
               [Input('tabs-example', 'value')])
@@ -311,7 +480,17 @@ def render_content(tab):
         return html.Div([dcc.Graph(figure=
              tab2_data())])
     elif tab=='tab-3':
-        return html.Div()
+        return html.Div(children=[
+            html.Br(),
+        daq.DarkThemeProvider(theme=theme, children=[
+            html.Div([
+                daq.BooleanSwitch(
+                id='my-toggle-switch',
+                label="Rural or Urban",
+               
+                on=True ),
+                html.Div(id='toggle-switch-output')
+                    ])] )])
 
 
 
