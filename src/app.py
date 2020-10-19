@@ -30,7 +30,33 @@ def update_case_graph(case,region):
     obj=CovidCases()
     dictionary=obj.return_history_graph()
     regions=[]
-    fig = go.Figure()
+    fig = go.Figure(layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
     if 'All' in region and type(region)==str:
             regions=json.loads(open("states.dat").read())
     elif 'All' in region and type(region)==list:
@@ -96,9 +122,35 @@ def tab1_data():
         go.Bar(name='Confirmed Cases-India', x=df['States'], y=df['Confirmed Cases (Indian)']),
         go.Bar(name='Confirmed Cases-Foreign', x=df['States'], y=df['Confirmed Cases (Foreign)']),
         go.Bar(name='Deaths', x=df['States'], y=df['Deaths']),
-        go.Bar(name='Discharged', x=df['States'], y=df['Discharged'])
+        go.Bar(name='Discharged', x=df['States'], y=df['Discharged'])],layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
         
-    ])
+    
     return html.Div(id='dark-theme-container',children=[daq.DarkThemeProvider(theme=theme),
         html.H1(children='Latest Covid-19 Cases'),
 
@@ -111,12 +163,34 @@ def tab1_data():
                 ),
                 html.Tr(
                     [html.Td(daq.LEDDisplay(
-            value="3.14159",
-            color=theme['primary'],
+            value=summary['total'],
+             color="#00ff00",
+			backgroundColor="#23262e",
             id='darktheme-daq-leddisplay',
             className='dark-theme-control'
             
-        )),html.Td(html.H4(summary['confirmedCasesIndian'])),html.Td(html.H4(summary['discharged'])),html.Td(html.H4(summary['deaths']))]
+        )),html.Td(daq.LEDDisplay(
+            value=summary['confirmedCasesIndian'],
+             color="#00ff00",
+			backgroundColor="#23262e",
+            id='darktheme-daq-leddisplay',
+            className='dark-theme-control'
+            
+        )),html.Td(daq.LEDDisplay(
+            value=summary['discharged'],
+             color="#00ff00",
+			backgroundColor="#23262e",
+            id='darktheme-daq-leddisplay',
+            className='dark-theme-control'
+            
+        )),html.Td(html.Td(daq.LEDDisplay(
+            value=summary['deaths'],
+             color="#00ff00",
+			backgroundColor="#23262e",
+            id='darktheme-daq-leddisplay',
+            className='dark-theme-control'
+            
+        )))]
 
                 )])
                 
