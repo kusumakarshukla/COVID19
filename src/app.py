@@ -8,8 +8,9 @@ import plotly.graph_objects as go
 import dash_daq as daq
 from dash.dependencies import Input, Output
 import json
+import dash_bootstrap_components as dbc
 external_stylesheets = ['https://codepen.io/anon/pen/mardKv.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 @app.callback(
     Output(component_id='history_table', component_property='children'),
     [Input(component_id='region_option', component_property='value'),
