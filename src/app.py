@@ -97,6 +97,60 @@ def update_case_graph(case,region):
             pass
             continue
     return fig
+
+def tab2_data():
+    print(" In tab2 function")
+    ob=CovidCases()
+    test_data=ob.testing()
+    fig = go.Figure(layout= go.Layout(
+            
+            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+            paper_bgcolor = '#000000',
+			font= {
+                    'color': 'white'
+                },
+            plot_bgcolor = '#000000',
+            transition= {
+                'duration': 100,
+              
+            },
+            hovermode='closest',
+            xaxis=dict(
+        autorange=True,
+        showgrid= False,
+        ticks='',
+        showticklabels=True
+            ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=True
+        )
+            )
+ 
+ 
+      )
+    x=test_data.day.to_list()
+    
+    y1=test_data.totalSamplesTested.to_list()
+    y2=test_data.totalIndividualsTested.to_list()
+    y3=test_data.totalPositiveCases.to_list()
+    fig.add_trace(go.Scatter(x=x, y=y1,
+                    mode='lines',
+                    name='Total Samples Tested'))
+    fig.add_trace(go.Scatter(x=x, y=y2,
+                    mode='lines',
+                    name='Total Individuals Tested'))
+    fig.add_trace(go.Scatter(x=x, y=y3,
+                    mode='lines',
+                    name='Total Positive Cases'))
+    fig.update_traces(marker=dict(size=1,
+                              line=dict(width=2,
+                                        color='DarkSlateGrey')),
+                  )
+            
+        
+    return fig
+
     
 def tab1_data():
     theme =  {
@@ -253,20 +307,26 @@ def render_content(tab):
     if tab == 'tab-1':
         return html.Div(tab1_data())
     elif tab == 'tab-2':
-        return html.Div([
-            html.H3('Tab content 2')
-        ])
+        print("ptessed tab2")
+        return html.Div([dcc.Graph(figure=
+             tab2_data())])
+    elif tab=='tab-3':
+        return html.Div()
+
 
 
     
 app.layout =html.Div([
     dcc.Tabs(id='tabs-example', value='tab-1', children=[
-        dcc.Tab(label='Tab one', value='tab-1'),
-        dcc.Tab(label='Tab two', value='tab-2'),
+        dcc.Tab(label='Cases', value='tab-1'),
+        dcc.Tab(label='Testing', value='tab-2'),
+        dcc.Tab(label='Facilities', value='tab-3')
     ]),
     html.Div(id='tabs-example-content')])
 app.config['suppress_callback_exceptions'] = True
 app.config.suppress_callback_exceptions = True
 
+if __name__=='__main__':
+    app.run_server(debug=True)
 
 

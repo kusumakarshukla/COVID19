@@ -89,7 +89,12 @@ class CovidCases:
 		return dictionary
 
 
-
+	def testing(self):
+		res=requests.get('https://api.rootnet.in/covid19-in/stats/testing/history').text
+		res=json.loads(res)
+		testing=pd.DataFrame(res['data'])
+		testing.fillna(0,inplace=True)
+		return testing
 
 
 	def return_history(self,state,date):
