@@ -265,9 +265,8 @@ app.layout =html.Div([
         dcc.Tab(label='Tab two', value='tab-2'),
     ]),
     html.Div(id='tabs-example-content')])
-    app.config['suppress_callback_exceptions'] = True
-    app.config.suppress_callback_exceptions = True
-    return app
+app.config['suppress_callback_exceptions'] = True
+app.config.suppress_callback_exceptions = True
 
 
 
