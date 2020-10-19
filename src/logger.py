@@ -2,7 +2,7 @@ import datetime
 class Logger:
         def __init__(self,filename):
             self.date=datetime.datetime.now().strftime("%d-%m-%y")
-            self.filename='../logs/{0}_{1}.log'.format(filename,self.date)
+            self.filename='logs/{0}_{1}.log'.format(filename,self.date)
             with open(filename,'a') as file:
                 file.write("logger initialized")
                 file.write('\n')

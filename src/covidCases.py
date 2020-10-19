@@ -7,7 +7,7 @@ import json
 class CovidCases:
 	def __init__(self):
 		self.config=configparser.ConfigParser()
-		self.config.read('../conf/config.ini')
+		self.config.read('conf/config.ini')
 		self.log=Logger('covid_cases')
 		self.log.info("Logger Initialized")
 
