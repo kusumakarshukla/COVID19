@@ -257,9 +257,9 @@ def render_content(tab):
             html.H3('Tab content 2')
         ])
 
-def initial_load():
+
     
-    app.layout =html.Div([
+app.layout =html.Div([
     dcc.Tabs(id='tabs-example', value='tab-1', children=[
         dcc.Tab(label='Tab one', value='tab-1'),
         dcc.Tab(label='Tab two', value='tab-2'),
@@ -270,6 +270,4 @@ def initial_load():
     return app
 
 
-if __name__ == '__main__':
-    app=initial_load()
-    app.run_server(debug=True)
+
