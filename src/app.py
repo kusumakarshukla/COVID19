@@ -10,6 +10,8 @@ from dash.dependencies import Input, Output
 import json
 external_stylesheets = ['https://codepen.io/anon/pen/mardKv.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
 @app.callback(
     Output(component_id='history_table', component_property='children'),
     [Input(component_id='region_option', component_property='value'),

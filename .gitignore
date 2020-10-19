@@ -1,0 +1,4 @@
+sparky
+*.pyc
+.DS_Store
+.env
