@@ -4,3 +4,4 @@ sys.path.insert(1, 'src/')
 
 
 import app
+server = app.server 
