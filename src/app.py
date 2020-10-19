@@ -63,7 +63,7 @@ def alter_toggle(rural):
  
  
       )
-        child.append(html.H2("Top 20 States with highest Bed counts in Rural Areas"))
+        child.append(html.H3("Top 20 States with highest Bed counts in Rural Areas"))
         child.append(dcc.Graph(figure=fig))
         tests.sort_values('ruralBeds',inplace=True)
         
@@ -100,7 +100,7 @@ def alter_toggle(rural):
  
  
       )
-        child.append(html.H2("Top 20 States with highest  Bed counts in Rural Areas"))
+        child.append(html.H3("Top 20 States with highest  Bed counts in Rural Areas"))
         child.append(dcc.Graph(figure=fig))
     else:
         tests.sort_values('urbanHospitals',inplace=True)
@@ -135,7 +135,7 @@ def alter_toggle(rural):
  
  
       )
-        child.append(html.H2("Top 20 States with highest Hospital Counts in Urban Areas"))
+        child.append(html.H3("Top 20 States with highest Hospital Counts in Urban Areas"))
         child.append(dcc.Graph(figure=fig))
         tests.sort_values('urbanBeds',inplace=True)
         x=tests.state[:20]
@@ -169,7 +169,7 @@ def alter_toggle(rural):
  
  
       )
-        child.append(html.H2("Top 20 States with highest  Bed counts in Urban Areas"))
+        child.append(html.H3("Top 20 States with highest  Bed counts in Urban Areas"))
         child.append(dcc.Graph(figure=fig))
 
     return child
@@ -378,13 +378,13 @@ def tab1_data():
         
     
     return html.Div(id='dark-theme-container',children=[daq.DarkThemeProvider(theme=theme),
-        html.H1(children='Latest Covid-19 Cases'),
+        html.H3(children='Latest Covid-19 Cases'),
 
         
         html.Div([
             html.Table([
                 html.Tr(
-                    [html.Td(html.H1('Total')),html.Td(html.H1('Overall Confirmed')),html.Td(html.H1('Overall Discharged')),html.Td(html.H1('Overall Deaths'))]
+                    [html.Td(html.H3('Total')),html.Td(html.H3('Overall Confirmed')),html.Td(html.H3('Overall Discharged')),html.Td(html.H3('Overall Deaths'))]
 
                 ),
                 html.Tr(
@@ -426,12 +426,12 @@ def tab1_data():
                 
             
         ]),
-        html.H1("Latest  COVID-19 Cases across Indian States"),
+        html.H3("Latest  COVID-19 Cases across Indian States"),
         dcc.Graph(
             id='example-graph',
             figure=fig,
     ),
-    html.H1("Record of Cases"),
+    html.H3("Record of Cases"),
     html.Div(children=[
         html.Table(html.Tr([
             html.Td([html.H3("States"),
@@ -454,7 +454,7 @@ def tab1_data():
 
     ]),
     html.Div(children=[html.Div(id="history_table")]),
-    html.Div(children=[html.H1("Trends Year Till Date"),html.Div(children=[
+    html.Div(children=[html.H3("Trends Year Till Date"),html.Div(children=[
         html.Div(
         dcc.Dropdown(id="history_graph",
                         options=[{'label':'Deaths','value':'Deaths'},
